@@ -72,6 +72,7 @@ ByteBuddy-AI-Chatbot/
 
 ---
 
+
 ## 🔑 Gemini API Setup
 
 * **Step 1: Get API Key** Visit **[Google AI Studio](https://aistudio.google.com/)** to generate your unique API key.
@@ -92,4 +93,5 @@ Follow these steps to run **ByteBuddy AI** on your local machine:
 ```bash
 git clone [https://github.com/Manu082/ByteBuddy-AI-Chatbot.git](https://github.com/Manu082/ByteBuddy-AI-Chatbot.git)
 cd ByteBuddy-AI-Chatbot
+
 
