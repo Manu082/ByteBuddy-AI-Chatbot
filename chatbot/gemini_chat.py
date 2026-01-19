@@ -9,11 +9,12 @@ if not GEMINI_API_KEY:
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-# ✅ USE STABLE, CLOUD-SAFE MODEL
-MODEL_NAME = "models/gemini-pro-latest"
+# ✅ IMPORTANT:
+# google-generativeai==0.3.2 works BEST with this alias
+MODEL_NAME = "gemini-pro"
 
 model = genai.GenerativeModel(
-    model_name=MODEL_NAME,
+    MODEL_NAME,
     generation_config={
         "temperature": 0.7,
         "top_p": 0.9,
@@ -28,29 +29,18 @@ def ask_gemini(user_input, chat_history=None):
     chat_history: list of (user, ai) tuples
     """
 
-    contents = []
+    prompt = ""
 
-    # ✅ Add conversation history (CORRECT FORMAT)
+    # Add previous conversation
     if chat_history:
         for user, ai in chat_history:
-            contents.append({
-                "role": "user",
-                "parts": [{"text": user}]
-            })
-            contents.append({
-                "role": "model",
-                "parts": [{"text": ai}]
-            })
+            prompt += f"User: {user}\n"
+            prompt += f"Assistant: {ai}\n"
 
-    # ✅ Add current user message
-    contents.append({
-        "role": "user",
-        "parts": [{"text": user_input}]
-    })
+    # Add current user input
+    prompt += f"User: {user_input}\nAssistant:"
 
-    # ✅ Correct request format for Gemini 2.x+
-    response = model.generate_content(
-        contents=contents
-    )
+    # ✅ Correct call for this SDK version
+    response = model.generate_content(prompt)
 
     return response.text.strip()
