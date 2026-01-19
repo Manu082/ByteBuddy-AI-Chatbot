@@ -83,4 +83,29 @@ ByteBuddy-AI-Chatbot/
 ### 👨‍💻 **Author & Credits**
 
 * **Author:** **Manas Didwania**
-* **Acknowledgements:** **Google Gemini API**, **Streamlit**, and the **Open Source Community**.
+* **Acknowledgements:** **Google Gemini API**, **Streamlit**, and the **Open Source Community** .
+
+---
+
+### ⭐ **Future Enhancements**
+
+* **User Authentication**: Implementing **secure login** and session management.
+* **History Export**: Ability to **download chat logs** as PDF or Text files.
+* **Language Support**: Adding **multi-language UI** and response capabilities.
+* **Voice Output**: Enabling **AI audio responses** (Text-to-Speech).
+* **Vector Database**: Integration for **long-term document storage** and retrieval.
+
+---
+
+### 📜 **License**
+
+* **Usage**: This project is licensed for **educational and internship purposes**.
+
+---
+
+### 🙌 **Acknowledgements**
+
+* **Google Gemini API**: For providing powerful **LLM capabilities**.
+* **Streamlit**: For the incredible **open-source web framework**.
+* **Python Community**: For the robust **development ecosystem**.
+
