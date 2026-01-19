@@ -1,8 +1,9 @@
 import streamlit as st
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+# ------------------ PYTHON PATH FIX (CLOUD SAFE) ------------------ #
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 # 🔥 ADDITION 1: Gemini import
 from chatbot.gemini_chat import ask_gemini
@@ -10,7 +11,7 @@ from chatbot.gemini_chat import ask_gemini
 # 🔥 ADDITION 5: Document Q&A import
 from document_qa.doc_chat import document_question_answer
 
-# 🔥 ADDITION 7: Chat memory + Voice input imports
+# 🔥 ADDITION 7: Chat memory imports
 from chatbot.chat_memory import (
     init_chat_memory,
     add_to_chat,
@@ -18,7 +19,17 @@ from chatbot.chat_memory import (
     clear_chat
 )
 
-from chatbot.voice_input import listen_from_mic
+# ❌ OLD DIRECT VOICE IMPORT (COMMENTED – breaks Streamlit Cloud)
+# from chatbot.voice_input import listen_from_mic
+
+# ✅ NEW: SAFE OPTIONAL VOICE IMPORT (LOCAL ONLY)
+VOICE_AVAILABLE = False
+try:
+    from chatbot.voice_input import listen_from_mic
+    VOICE_AVAILABLE = True
+except Exception:
+    VOICE_AVAILABLE = False
+
 
 # ------------------ BASIC CONFIG ------------------ #
 st.set_page_config(
@@ -27,7 +38,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
 
 # 🔥 ADDITION 8: Initialize centralized chat memory
 init_chat_memory()
@@ -232,33 +242,38 @@ elif mode == "📄 Document Q&A":
 elif mode == "🎤 Voice Assistant":
     st.subheader("🎤 Voice Assistant")
 
-    st.info(
-        "🎙️ Click the button and speak.\n\n"
-        "ByteBuddy will understand your voice and respond."
-    )
-
-    if st.button("🎤 Start Listening"):
-        with st.spinner("🎧 Listening..."):
-            voice_text = listen_from_mic()
-
-        st.markdown(
-            f"<div class='chat-box'><b>You (Voice):</b> {voice_text}</div>",
-            unsafe_allow_html=True
+    # ✅ CLOUD-SAFE VOICE HANDLING
+    if not VOICE_AVAILABLE:
+        st.warning("🎤 Voice input is disabled on Streamlit Cloud.")
+        st.info("You can use voice input when running the app locally.")
+    else:
+        st.info(
+            "🎙️ Click the button and speak.\n\n"
+            "ByteBuddy will understand your voice and respond."
         )
 
-        if not voice_text.startswith("⚠️") and not voice_text.startswith("❌"):
-            with st.spinner("🤖 ByteBuddy is thinking..."):
-                response = ask_gemini(
-                    voice_text,
-                    get_chat_history()
-                )
+        if st.button("🎤 Start Listening"):
+            with st.spinner("🎧 Listening..."):
+                voice_text = listen_from_mic()
 
-                add_to_chat(voice_text, response)
+            st.markdown(
+                f"<div class='chat-box'><b>You (Voice):</b> {voice_text}</div>",
+                unsafe_allow_html=True
+            )
 
-                st.markdown(
-                    f"<div class='chat-box'><b>ByteBuddy:</b> {response}</div>",
-                    unsafe_allow_html=True
-                )
+            if not voice_text.startswith("⚠️") and not voice_text.startswith("❌"):
+                with st.spinner("🤖 ByteBuddy is thinking..."):
+                    response = ask_gemini(
+                        voice_text,
+                        get_chat_history()
+                    )
+
+                    add_to_chat(voice_text, response)
+
+                    st.markdown(
+                        f"<div class='chat-box'><b>ByteBuddy:</b> {response}</div>",
+                        unsafe_allow_html=True
+                    )
 
 # ------------------ FOOTER ------------------ #
 st.markdown("<br><br>", unsafe_allow_html=True)
