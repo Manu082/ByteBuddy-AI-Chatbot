@@ -3,23 +3,22 @@
 import streamlit as st
 import google.generativeai as genai
 
-# ✅ Read API key from Streamlit secrets
+# Read API key from Streamlit secrets
 GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY")
 
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY not found in Streamlit secrets")
 
-# ✅ Configure Gemini
+# Configure Gemini
 genai.configure(api_key=GEMINI_API_KEY)
 
-# ✅ Use supported Gemini model
-MODEL_NAME = "models/gemini-1.5-flash"
+# ✅ USE v1beta SUPPORTED MODEL
+MODEL_NAME = "models/gemini-pro"
 
 def ask_gemini(user_input, chat_history=None):
     try:
         model = genai.GenerativeModel(MODEL_NAME)
 
-        # Build prompt with last 5 messages
         prompt = user_input
         if chat_history:
             history_text = "\n".join(
@@ -28,8 +27,7 @@ def ask_gemini(user_input, chat_history=None):
             prompt = history_text + "\nUser: " + user_input
 
         response = model.generate_content(prompt)
-
-        return response.text.strip() if response.text else "⚠️ No response from Gemini."
+        return response.text.strip()
 
     except Exception as e:
         return f"❌ Gemini Error: {str(e)}"
