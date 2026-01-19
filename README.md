@@ -3,99 +3,93 @@
 **ByteBuddy AI** is a powerful, modern AI chatbot built using **Python**, **Streamlit**, and **Google Gemini API**.  
 It supports **AI chat**, **document-based question answering**, and **voice interaction**, all in one interactive web app.
 
-🌐 **Live App:** https://bytebuddy-ai-chatbot.streamlit.app/
+🌐 **Live App:** [https://bytebuddy-ai-chatbot.streamlit.app/](https://bytebuddy-ai-chatbot.streamlit.app/)
 
 ---
 
 ## 🚀 Features
 
-- **💬 AI Chat**
-  - Ask any question in natural language
-  - Context-aware conversation using chat memory
-  - Powered by Google Gemini models
+* **💬 AI Chat**
+  * **Natural Language:** Ask any question in natural language.
+  * **Context-Aware:** Conversation using chat memory to remember previous prompts.
+  * **Power:** Powered by high-performance Google Gemini models.
 
-- **📄 Document Question Answering**
-  - Upload **PDF**, **DOCX**, or **TXT** files
-  - Ask questions directly from documents
-  - Smart summarization and extraction
+* **📄 Document Question Answering**
+  * **File Support:** Upload **PDF**, **DOCX**, or **TXT** files.
+  * **Direct Query:** Ask questions directly from your uploaded documents.
+  * **Summarization:** Smart summarization and key information extraction.
 
-- **🎤 Voice Assistant**
-  - Speak instead of typing
-  - Converts voice to text
-  - AI responds intelligently
+* **🎤 Voice Assistant**
+  * **Hands-Free:** Speak your questions instead of typing.
+  * **Conversion:** High-accuracy voice-to-text processing.
+  * **Intelligence:** AI processes and responds to voice commands intelligently.
 
-- **🌗 Light / Dark Theme**
-  - Toggle between **Day mode** and **Night mode**
-  - Modern animated UI
+* **🌗 Light / Dark Theme**
+  * **Customization:** Toggle between **Day mode** and **Night mode**.
+  * **UI/UX:** Modern animated interface with responsive design.
 
-- **🧠 Chat Memory**
-  - Maintains conversation context
-  - Clear chat anytime
+* **🧠 Chat Memory**
+  * **History:** Maintains conversation context throughout the session.
+  * **Control:** Clear chat history anytime with a single click.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend**
-  - Streamlit
-  - Custom HTML & CSS
-  - Animations & responsive layout
+* **Frontend**
+  * **Streamlit:** For the web framework.
+  * **Custom HTML & CSS:** For unique styling and animations.
 
-- **Backend**
-  - Python
-  - Google Gemini API
-  - Document parsing logic
+* **Backend**
+  * **Python:** Core logic and processing.
+  * **Google Gemini API:** Providing the LLM capabilities.
+  * **Document Parsing:** Logic for handling various file formats.
 
-- **AI Models**
-  - Gemini Flash / Pro models
-  - Gemini Embeddings
+* **AI Models**
+  * **Gemini Flash / Pro:** Latest generative AI models.
+  * **Gemini Embeddings:** For vector-based document search.
 
 ---
 
 ## 📁 Project Structure
 
+```text
 ByteBuddy-AI-Chatbot/
 │
-├── app.py
-├── requirements.txt
-├── README.md
+├── app.py                # Main application entry point
+├── requirements.txt      # Project dependencies
+├── README.md             # Project documentation
 │
-├── chatbot/
-│ ├── gemini_chat.py
-│ ├── chat_memory.py
-│ └── voice_input.py
+├── chatbot/              # Chat logic and modules
+│   ├── gemini_chat.py
+│   ├── chat_memory.py
+│   └── voice_input.py
 │
-├── document_qa/
-│ └── doc_chat.py
+├── document_qa/          # Document processing logic
+│   └── doc_chat.py
 │
-└── assets/
-
+└── assets/               # UI design elements and images
 
 ---
 
 ## 🔑 Gemini API Setup
 
-1. Go to **Google AI Studio**
-2. Create a **Gemini API Key**
-3. In Streamlit Cloud:
-   - Go to **App Settings → Secrets**
-   - Add:
-     ```md
-     GEMINI_API_KEY = "your_api_key_here"
-     ```
+* **Step 1: Get API Key** Visit **[Google AI Studio](https://aistudio.google.com/)** to generate your unique API key.
+
+* **Step 2: Configuration for Streamlit Cloud** * Navigate to your app dashboard: **App Settings** → **Secrets**.
+  * Paste the following configuration:
+    ```toml
+    GEMINI_API_KEY = "your_api_key_here"
+    ```
 
 ---
 
 ## ⚙️ Installation (Local Setup)
 
-### 1️⃣ Clone the Repository
+Follow these steps to run **ByteBuddy AI** on your local machine:
+
+### **1️⃣ Clone the Repository**
 ```bash
-git clone https://github.com/Manu082/ByteBuddy-AI-Chatbot.git
+git clone [https://github.com/Manu082/ByteBuddy-AI-Chatbot.git](https://github.com/Manu082/ByteBuddy-AI-Chatbot.git)
 cd ByteBuddy-AI-Chatbot
-
-### 2 Create Virtual Environment
-```bash
-python -m venv venv
-
-
 
