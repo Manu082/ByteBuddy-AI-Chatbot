@@ -1,5 +1,4 @@
 import streamlit as st
-from dotenv import load_dotenv
 import os
 
 # 🔥 ADDITION 1: Gemini import
@@ -26,7 +25,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-load_dotenv()
 
 # 🔥 ADDITION 8: Initialize centralized chat memory
 init_chat_memory()
