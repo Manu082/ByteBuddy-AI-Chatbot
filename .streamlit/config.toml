@@ -1,0 +1,8 @@
+[server]
+headless = true
+
+[theme]
+base = "dark"
+
+[python]
+version = "3.10"
