@@ -93,8 +93,9 @@ ByteBuddy-AI-Chatbot/
 git clone https://github.com/Manu082/ByteBuddy-AI-Chatbot.git
 cd ByteBuddy-AI-Chatbot
 
-### 2️⃣ Create Virtual Environment 
+### 2 Create Virtual Environment
 ```bash
-  python -m venv venv
+python -m venv venv
+
 
 
