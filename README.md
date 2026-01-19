@@ -72,6 +72,10 @@ ByteBuddy-AI-Chatbot/
 
 ---
 
+🌐 **Live App:** [https://bytebuddy-ai-chatbot.streamlit.app/](https://bytebuddy-ai-chatbot.streamlit.app/)
+
+---
+
 ### 📌 **Technical Details**
 
 * **Deployment:** Hosted on **Streamlit Cloud**.
@@ -108,4 +112,5 @@ ByteBuddy-AI-Chatbot/
 * **Google Gemini API**: For providing powerful **LLM capabilities**.
 * **Streamlit**: For the incredible **open-source web framework**.
 * **Python Community**: For the robust **development ecosystem**.
+
 
