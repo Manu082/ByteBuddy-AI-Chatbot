@@ -1,29 +1,56 @@
 import os
 import google.generativeai as genai
 
-API_KEY = os.getenv("GEMINI_API_KEY")
-if not API_KEY:
-    raise ValueError("GEMINI_API_KEY not found in Streamlit Secrets")
+# ------------------ GEMINI CONFIG ------------------ #
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-genai.configure(api_key=API_KEY)
+if not GEMINI_API_KEY:
+    raise ValueError("❌ GEMINI_API_KEY not found in environment variables")
 
-MODEL_NAME = "models/gemini-flash-lite-latest"
-model = genai.GenerativeModel(MODEL_NAME)
+genai.configure(api_key=GEMINI_API_KEY)
 
-def ask_gemini(user_prompt, chat_history=None):
-    context = ""
+# ✅ USE STABLE, CLOUD-SAFE MODEL
+MODEL_NAME = "models/gemini-pro-latest"
+
+model = genai.GenerativeModel(
+    model_name=MODEL_NAME,
+    generation_config={
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "max_output_tokens": 1024
+    }
+)
+
+# ------------------ CHAT FUNCTION ------------------ #
+def ask_gemini(user_input, chat_history=None):
+    """
+    user_input: str
+    chat_history: list of (user, ai) tuples
+    """
+
+    contents = []
+
+    # ✅ Add conversation history (CORRECT FORMAT)
     if chat_history:
-        for u, a in chat_history:
-            context += f"User: {u}\nAI: {a}\n"
+        for user, ai in chat_history:
+            contents.append({
+                "role": "user",
+                "parts": [{"text": user}]
+            })
+            contents.append({
+                "role": "model",
+                "parts": [{"text": ai}]
+            })
 
-    prompt = f"""
-You are ByteBuddy AI, a helpful assistant.
+    # ✅ Add current user message
+    contents.append({
+        "role": "user",
+        "parts": [{"text": user_input}]
+    })
 
-Conversation so far:
-{context}
+    # ✅ Correct request format for Gemini 2.x+
+    response = model.generate_content(
+        contents=contents
+    )
 
-User:
-{user_prompt}
-"""
-    response = model.generate_content(prompt)
     return response.text.strip()
