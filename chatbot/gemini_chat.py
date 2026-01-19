@@ -4,16 +4,12 @@ import streamlit as st
 import google.generativeai as genai
 
 # Read API key from Streamlit secrets
-GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY")
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 
-if not GEMINI_API_KEY:
-    raise ValueError("GEMINI_API_KEY not found in Streamlit secrets")
-
-# Configure Gemini
 genai.configure(api_key=GEMINI_API_KEY)
 
-# ✅ USE v1beta SUPPORTED MODEL
-MODEL_NAME = "models/gemini-pro"
+# ✅ FINAL, SAFE MODEL
+MODEL_NAME = "models/gemini-flash-latest"
 
 def ask_gemini(user_input, chat_history=None):
     try:
