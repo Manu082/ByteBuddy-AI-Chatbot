@@ -1,47 +1,30 @@
 # chatbot/gemini_chat.py
 
+import streamlit as st
 import google.generativeai as genai
-from config.config import GEMINI_API_KEY
 
+# ✅ Read API key from Streamlit secrets
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+
+# Configure Gemini
 genai.configure(api_key=GEMINI_API_KEY)
 
-MODEL_NAME = "models/gemini-2.5-flash"
-
-model = genai.GenerativeModel(MODEL_NAME)
-
+# Use a stable model
+MODEL_NAME = "models/gemini-pro"
 
 def ask_gemini(user_input, chat_history=None):
-    """
-    user_input: str
-    chat_history: list of (user, ai) tuples
-    """
+    try:
+        model = genai.GenerativeModel(MODEL_NAME)
 
-    contents = []
+        prompt = user_input
+        if chat_history:
+            history_text = "\n".join(
+                [f"User: {u}\nAI: {a}" for u, a in chat_history[-5:]]
+            )
+            prompt = history_text + "\nUser: " + user_input
 
-    # Add previous chat history
-    if chat_history:
-        for user, ai in chat_history:
-            contents.append({
-                "role": "user",
-                "parts": [{"text": user}]
-            })
-            contents.append({
-                "role": "model",
-                "parts": [{"text": ai}]
-            })
+        response = model.generate_content(prompt)
+        return response.text.strip()
 
-    # Add current user input
-    contents.append({
-        "role": "user",
-        "parts": [{"text": user_input}]
-    })
-
-    response = model.generate_content(
-        contents=contents,
-        generation_config={
-            "temperature": 0.7,
-            "max_output_tokens": 512
-        }
-    )
-
-    return response.text
+    except Exception as e:
+        return f"❌ Gemini Error: {str(e)}"
